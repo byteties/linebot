@@ -8,6 +8,6 @@
     "heroku-cli": "^7.0.9"
   },
   "scripts": {
-    "start":"start"
+    "start": "node index.js"
   }
 }
