@@ -21,22 +21,25 @@ function reply(reply_token, msg) {
     let body = JSON.stringify({
         replyToken: reply_token,
         messages: [{
-            type: 'text',
+            type: 'template',
             text: {
-                "type": "bubble", // ①
-                "body": { // ②
-                  "type": "box", // ③
-                  "layout": "horizontal",　// ④
-                  "contents": [ // ⑤
-                    {
-                      "type": "text", // ⑥
-                      "text": "Hello,"
-                    },
-                    {
-                      "type": "text", // ⑥
-                      "text": "World!"
-                    }
-                  ]
+                "type": "template",
+                "altText": "this is a confirm template",
+                "template": {
+                    "type": "confirm",
+                    "text": "Are you sure?",
+                    "actions": [
+                        {
+                          "type": "message",
+                          "label": "Yes",
+                          "text": "yes"
+                        },
+                        {
+                          "type": "message",
+                          "label": "No",
+                          "text": "no"
+                        }
+                    ]
                 }
               }
         }]
