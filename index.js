@@ -8,6 +8,7 @@ app.use(bodyParser.json())
 app.post('/webhook', (req, res) => {
     let reply_token = req.body.events[0].replyToken
     let msg = req.body.events[0].message.text
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>',msg)
     reply(reply_token, msg)
     res.sendStatus(200)
 })
@@ -21,7 +22,7 @@ function reply(reply_token, msg) {
     let body = JSON.stringify({
         replyToken: reply_token,
         messages: [{
-            type: 'template',
+            type: 'text',
             text: {
                 "type": "template",
                 "altText": "this is a confirm template",
