@@ -45,6 +45,6 @@ function reply(reply_token, msg) {
             }
           }
     }, (err, res, body) => {
-        console.log('status = ' + res.statusCode);
+        // console.log('status = ' + res.statusCode);
     });
 }
