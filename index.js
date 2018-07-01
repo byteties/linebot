@@ -27,7 +27,23 @@ function reply(reply_token, msg) {
     request.post({
         url: 'https://api.line.me/v2/bot/message/reply',
         headers: headers,
-        body: body
+        body: {
+            "type": "bubble", // ①
+            "body": { // ②
+              "type": "box", // ③
+              "layout": "horizontal",　// ④
+              "contents": [ // ⑤
+                {
+                  "type": "text", // ⑥
+                  "text": "Hello,"
+                },
+                {
+                  "type": "text", // ⑥
+                  "text": "World!"
+                }
+              ]
+            }
+          }
     }, (err, res, body) => {
         console.log('status = ' + res.statusCode);
     });
