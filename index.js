@@ -7,7 +7,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.post('/webhook', (req, res) => {
     let reply_token = req.body.events[0].replyToken
-    let msg = req.body.events[0]
+    let msg = req.body.events[0].message.text
     reply(reply_token, msg)
     res.sendStatus(200)
 })
@@ -22,29 +22,29 @@ function reply(reply_token, msg) {
         replyToken: reply_token,
         messages: [{
             type: 'text',
-            text: msg
+            text: {
+                "type": "bubble", // ①
+                "body": { // ②
+                  "type": "box", // ③
+                  "layout": "horizontal",　// ④
+                  "contents": [ // ⑤
+                    {
+                      "type": "text", // ⑥
+                      "text": "Hello,"
+                    },
+                    {
+                      "type": "text", // ⑥
+                      "text": "World!"
+                    }
+                  ]
+                }
+              }
         }]
     })
     request.post({
         url: 'https://api.line.me/v2/bot/message/reply',
         headers: headers,
-        body: {
-            "type": "bubble", // ①
-            "body": { // ②
-              "type": "box", // ③
-              "layout": "horizontal",　// ④
-              "contents": [ // ⑤
-                {
-                  "type": "text", // ⑥
-                  "text": "Hello,"
-                },
-                {
-                  "type": "text", // ⑥
-                  "text": "World!"
-                }
-              ]
-            }
-          }
+        body: body
     }, (err, res, body) => {
         console.log('status = ' + res.statusCode);
     });
