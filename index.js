@@ -25,26 +25,32 @@ function reply(reply_token, msg) {
     //         text: msg
     //     }]
     // })
-    let body = {
-        "type": "template",
-        "altText": "this is a confirm template",
-        "template": {
-            "type": "confirm",
-            "text": "Are you sure?",
-            "actions": [
-                {
-                  "type": "message",
-                  "label": "Yes",
-                  "text": "yes"
-                },
-                {
-                  "type": "message",
-                  "label": "No",
-                  "text": "no"
+
+    let body = JSON.stringify({
+        replyToken: reply_token,
+        messages: [{
+            type: 'template',
+            text: {
+                "altText": "this is a confirm template",
+                "template": {
+                    "type": "confirm",
+                    "text": "Are you sure?",
+                    "actions": [
+                        {
+                          "type": "message",
+                          "label": "Yes",
+                          "text": "yes"
+                        },
+                        {
+                          "type": "message",
+                          "label": "No",
+                          "text": "no"
+                        }
+                    ]
                 }
-            ]
-        }
-      }
+              }
+        }]
+    })
     request.post({
         url: 'https://api.line.me/v2/bot/message/reply',
         headers: headers,
